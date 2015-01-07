@@ -34,6 +34,7 @@ Go to console.developers.google.com and create a new project (or use the exisitn
   GOOGLE_API_KEY: '[YOUR API KEY GOES HERE]',
   GOOGLE_MIME_TYPE: '[application/{something}]',
   GOOGLE_DRIVE_SDK_APP_ID: '[first part of your client id, the part before the first dash]',
+  GOOGLE_CLIENT_ID: '[your entire client id]'
 }
 ```
 
