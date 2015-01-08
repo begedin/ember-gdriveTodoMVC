@@ -2,10 +2,10 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-  beforeModel: function(transition) {
-    
+  beforeModel: function (transition) {
+
     this._super(transition);
-    
+
     var route = this;
     var documentSource = route.get('documentSource');
     var state = documentSource.get('state'); // Forces creation of the state, which clears the query params
@@ -14,20 +14,26 @@ export default Ember.Route.extend({
     if (!isStatePresent) {
       return;
     }
-    
-    var documentLoadPromise = null;
-    
-    if (state.get('isOpen')) {
-      documentLoadPromise = documentSource.openFromState();
-    } else {
-      documentLoadPromise = documentSource.createFromState();
-    }
-    
-    return documentLoadPromise.then(function(doc) {
-      if(doc) {
+
+    this.get('session').authenticate('authenticator:gdrive', {}).then(function () {
+
+      if (state.get('isOpen')) {
+        return documentSource.openFromState();
+      } else {
+        return documentSource.createFromState();
+      }
+    }).then(function (doc) {
+      if (doc) {
         route.transitionTo('document', doc);
       }
     });
-  }
+  },
 
+  actions: {
+    login: function (userID) {
+      this.session.authenticate('authenticator:gdrive', {
+        userID: userID
+      });
+    }
+  }
 });

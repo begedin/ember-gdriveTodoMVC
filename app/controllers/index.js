@@ -1,9 +1,3 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
-  actions: {
-    login: function() {
-      this.get('auth').login();
-    }
-  }
-});
+export default Ember.Controller.extend({});

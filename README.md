@@ -27,12 +27,19 @@ Note that ember-cli-simple-auth is a third party addon which expects ember-simpl
 
 Go to console.developers.google.com and create a new project (or use the exisitng one if it's already prepared). Open the project and go to **APIs and auth > Credentials**. Create a new Client ID and a new Public API Access Key. You will to use some of the keys here for your application.
 
+Also go to **APIs and auth > API** and enable the **Drive API** and **Drive SDK**
+
+Configure the SDK. Enable document creation and add your default MIME type. You will require it bellow.
+
 ## Step 4 - Modify your app's configuration and add ember-gdrive settings
+
+The way ember-gdrive currently works requires your locationType to be set to 'hash', so change the appropriate property from 'auto' to 'hash'.
+
 `ember-gdrive` requires the following object to be added to the EmberCLI configuration's `ENV.APP` object:
 ```
 'ember-gdrive': {
   GOOGLE_API_KEY: '[YOUR API KEY GOES HERE]',
-  GOOGLE_MIME_TYPE: '[application/{something}]',
+  GOOGLE_MIME_TYPE: '[your selected MIME type]',
   GOOGLE_DRIVE_SDK_APP_ID: '[first part of your client id, the part before the first dash]',
   GOOGLE_CLIENT_ID: '[your entire client id]'
 }
@@ -55,7 +62,18 @@ contentSecurityPolicy: {
 
 We suggest you read up on this at https://github.com/rwjblue/ember-cli-content-security-policy
 
-
 # A simple TodoMVC with ember-gdrive
 
-//Todo (no pun intended)
+This early in development, the router configuration needs to be structured the following way:
+```
+this.resource('document', { path: 'd/:document_id' }, function() {
+    // routes to your objects go here
+});
+
+this.resource('login');
+```
+
+ember-gdrive exposes several route mixins, which need to be used in your application. They are mostly inherited from `ember-simple-auth`, with a few extensions.
+
+* `ApplicationRouteMixin` - this one will be used by your base application route. Usually, it's simply the route `application`, but you may have specific cases
+* `AuthenticatedRouteMixin` - this one will be used by routes that load data or otherwise access a google drive document, so they require authentication. By default, this would be the `document` route.
