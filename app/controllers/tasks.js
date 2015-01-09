@@ -1,15 +1,27 @@
 import Ember from 'ember';
 
 export default Ember.ArrayController.extend({
+  newTaskTitle: null,
+
   actions: {
     create: function () {
-      this.store.beginOperation('create task');
-      var task = this.store.createRecord('task', {
-        title: 'New task'
-      });
-      task.save();
-      this.store.endOperation('create task');
+
+      var title = this.get('newTaskTitle'),
+        controller = this;
+
+      if (title.length > 0) {
+        var task = this.store.createRecord('task', {
+          title: this.get('newTaskTitle')
+        });
+        task.save().then(function () {
+          controller.set('newTaskTitle', '');
+        });
+      }
+    },
+
+    delete: function (task) {
+      task.destroyRecord();
     }
   }
-  
+
 });

@@ -1,7 +1,12 @@
-<ul>
-{{#each task in model}}
-  <li>{{task.title}}</li>
-{{/each}}
-</ul>
+<form action 'create' on="submit">
+  {{input placeholder="Type task title" value=newTaskTitle }}
+  <input type="submit" value="Add" {{action 'create'}}/>
 
-<button {{action 'create'}}>Create a task</button>
+  <ul>
+    {{#each task in model}}
+    <li><span>{{task.title}}</span>
+      <button {{action 'delete' task}}>X</button>
+    </li>
+    {{/each}}
+  </ul>
+</form>
