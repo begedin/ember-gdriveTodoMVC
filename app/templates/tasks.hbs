@@ -4,8 +4,10 @@
 
   <ul>
     {{#each task in model}}
-    <li><span>{{task.title}}</span>
-      <button {{action 'delete' task}}>X</button>
+    <li {{bind-attr class=" :task task.completed"}}>
+      <span class="completion-indicator" {{action 'toggle' task}}>Toggle</span>
+      <span>{{task.title}}</span>
+      <button {{action 'delete' task}}>Delete</button>
     </li>
     {{/each}}
   </ul>

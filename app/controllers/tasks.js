@@ -1,9 +1,16 @@
 import Ember from 'ember';
 
 export default Ember.ArrayController.extend({
+  
   newTaskTitle: null,
 
   actions: {
+    
+    toggle: function (task) {
+      task.set('completed', !task.get('completed'));
+      task.save();
+    },
+    
     create: function () {
 
       var title = this.get('newTaskTitle'),

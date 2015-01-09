@@ -1,3 +1,25 @@
 html, body {
   margin: 20px;
 }
+
+.task {
+  height: 30px;
+  margin-bottom: 5px;
+}
+
+.task span, .task button {
+  display: inline-block;
+  vertical-align: middle;
+  height: 30px;
+  line-height: 30px;
+}
+
+.task .completion-indicator {
+  background: gray;
+  color: white;
+  padding: 2px;
+}
+
+.task.completed .completion-indicator {
+  background: green;
+}
