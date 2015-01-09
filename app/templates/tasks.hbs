@@ -1,0 +1,14 @@
+<form action 'create' on="submit">
+  {{input placeholder="Type task title" value=newTaskTitle }}
+  <input type="submit" value="Add" {{action 'create'}}/>
+
+  <ul>
+    {{#each task in model}}
+    <li {{bind-attr class=" :task task.completed"}}>
+      <span class="completion-indicator" {{action 'toggle' task}}>Toggle</span>
+      <span>{{task.title}}</span>
+      <button {{action 'delete' task}}>Delete</button>
+    </li>
+    {{/each}}
+  </ul>
+</form>

@@ -6,6 +6,11 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.resource('document', { path: 'd/:document_id' }, function() {
+      this.resource('tasks', { path: 'tasks' });
+  });
+  
+  this.resource('login');
 });
 
 export default Router;

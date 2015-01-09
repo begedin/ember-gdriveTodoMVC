@@ -5,7 +5,7 @@ module.exports = function(environment) {
     modulePrefix: 'ember-gdrive-todo-mvc',
     environment: environment,
     baseURL: '/',
-    locationType: 'auto',
+    locationType: 'hash',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -31,6 +31,7 @@ module.exports = function(environment) {
         GOOGLE_API_KEY: 'AIzaSyBQ8R2PRoiMnetrIhyFevjnqFmq84_Se2c',
         GOOGLE_MIME_TYPE: 'application/todomvc',
         GOOGLE_DRIVE_SDK_APP_ID: '872473528107',
+        GOOGLE_CLIENT_ID: '872473528107-us5nehkt2ai460gskr325pnmbjm4u0tu.apps.googleusercontent.com'
       }
     }
   };
