@@ -1,0 +1,7 @@
+<ul>
+{{#each task in model}}
+  <li>{{task.title}}</li>
+{{/each}}
+</ul>
+
+<button {{action 'create'}}>Create a task</button>

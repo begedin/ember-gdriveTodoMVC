@@ -30,10 +30,8 @@ export default Ember.Route.extend({
   },
 
   actions: {
-    login: function (userID) {
-      this.session.authenticate('authenticator:gdrive', {
-        userID: userID
-      });
+    login: function () {
+      this.session.authenticate('authenticator:gdrive', {});
     }
   }
 });
