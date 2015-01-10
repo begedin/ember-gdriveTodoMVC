@@ -3,14 +3,27 @@ import Ember from 'ember';
 export default Ember.ArrayController.extend({
   
   newTaskTitle: null,
+  
+  count: Ember.computed.alias('model.length'),
+  
+  remainingTasks: Ember.computed.filterBy('model','completed', false),
+  remainingCount: Ember.computed.alias('remainingTasks.length'),
+  
+  completedTasks: Ember.computed.filterBy('model', 'completed', true),
+  completedCount: Ember.computed.alias('completedTasks.length'),
+  
+  allAreDone: function(key, value) {
+    if (value === undefined) {
+      return this.get('length') > 0 && this.everyProperty('completed', true);
+    }
+    else {
+      this.setEach('completed', value);
+      this.invoke('save');
+      return value;
+    }
+  }.property('@each.completed'),
 
-  actions: {
-    
-    toggle: function (task) {
-      task.set('completed', !task.get('completed'));
-      task.save();
-    },
-    
+  actions: {    
     create: function () {
 
       var title = this.get('newTaskTitle'),
@@ -28,6 +41,10 @@ export default Ember.ArrayController.extend({
 
     delete: function (task) {
       task.destroyRecord();
+    },
+    
+    clearCompleted : function () {
+      this.get('completedTasks').invoke('destroyRecord');
     }
   }
 
