@@ -1,7 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.ObjectController.extend({
-  completed: function(key, value){
+  
+  isEditing: false,
+  
+  isCompleted: function(key, value){
     var model = this.get('model');
 
     if (value === undefined) {
@@ -13,5 +16,25 @@ export default Ember.ObjectController.extend({
       model.save();
       return value;
     }
-  }.property('model.completed')
+  }.property('model.completed'),
+  
+  actions: {
+    edit: function () {
+      this.set('isEditing', true);
+    },
+
+    delete: function () {
+      this.get('model').destroyRecord();
+    },
+
+    acceptChanges: function () {
+      this.set('isEditing', false);
+
+      if (Ember.isEmpty(this.get('model.title'))) {
+        this.send('delete', task);
+      } else {
+        this.get('model').save();
+      }
+    },
+  }
 });
