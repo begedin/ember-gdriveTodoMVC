@@ -1,14 +1,44 @@
-<form action 'create' on="submit">
-  {{input placeholder="Type task title" value=newTaskTitle }}
-  <input type="submit" value="Add" {{action 'create'}}/>
-
-  <ul>
-    {{#each task in model}}
-    <li {{bind-attr class=" :task task.completed"}}>
-      <span class="completion-indicator" {{action 'toggle' task}}>Toggle</span>
-      <span>{{task.title}}</span>
-      <button {{action 'delete' task}}>Delete</button>
-    </li>
-    {{/each}}
-  </ul>
-</form>
+<section id="todoapp">
+  <header id="header">
+    <h1>ember-gdrive</h1>
+    {{input id="new-todo" placeholder="Type task title" value=newTaskTitle action='create'}}
+  </header>
+ 
+  <section id="main">
+    <ul id="todo-list">
+      {{#each task in model itemController='task'}}
+      <li {{bind-attr class="task.completed:complete"}}>
+        {{input type="checkbox" checked=task.completed class="toggle"}}
+        <label>{{task.title}}</label><button class="destroy" {{action 'delete' task}}></button>
+      </li>
+      {{/each}}
+    </ul>
+ 
+    {{input type="checkbox" id="toggle-all" checked=allAreDone }}
+  </section>
+ 
+  <footer id="footer">
+    <span id="todo-count">
+      <strong>{{remainingCount}}</strong> todos left
+    </span>
+    <ul id="filters">
+      <li>
+        <a href="all" class="selected">All</a>
+      </li>
+      <li>
+        <a href="active">Active</a>
+      </li>
+      <li>
+        <a href="completed">Completed</a>
+      </li>
+    </ul>
+ 
+    <button id="clear-completed" {{action 'clearCompleted'}}>
+      Clear completed ({{completedCount}})
+    </button>
+  </footer>
+</section>
+ 
+<footer id="info">
+  <p>Double-click to edit a todo</p>
+</footer>
