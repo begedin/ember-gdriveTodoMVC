@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.ArrayController.extend({
 
   newTaskTitle: null,
+  isSharing: false,
 
   count: Ember.computed.alias('model.length'),
 
@@ -40,6 +41,10 @@ export default Ember.ArrayController.extend({
 
     clearCompleted: function () {
       this.get('completedTasks').invoke('destroyRecord');
+    },
+    
+    share: function () {
+      this.set('isSharing', true);
     }
   }
 
