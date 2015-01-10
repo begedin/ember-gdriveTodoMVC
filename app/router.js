@@ -7,7 +7,10 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
   this.resource('document', { path: 'd/:document_id' }, function() {
-      this.resource('tasks', { path: 'tasks' });
+      this.resource('tasks', { path: 'tasks' }, function() {
+        this.route('remaining');
+        this.route('completed');
+      });
   });
   
   this.resource('login');

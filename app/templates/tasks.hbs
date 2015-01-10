@@ -5,15 +5,7 @@
   </header>
  
   <section id="main">
-    <ul id="todo-list">
-      {{#each task in model itemController='task'}}
-      <li {{bind-attr class="task.completed:complete"}}>
-        {{input type="checkbox" checked=task.completed class="toggle"}}
-        <label>{{task.title}}</label><button class="destroy" {{action 'delete' task}}></button>
-      </li>
-      {{/each}}
-    </ul>
- 
+    {{outlet}} 
     {{input type="checkbox" id="toggle-all" checked=allAreDone }}
   </section>
  
@@ -23,13 +15,13 @@
     </span>
     <ul id="filters">
       <li>
-        <a href="all" class="selected">All</a>
+        {{#link-to "tasks.index" activeClass="selected"}}All{{/link-to}}
       </li>
       <li>
-        <a href="active">Active</a>
+        {{#link-to "tasks.remaining" activeClass="selected"}}Remaining{{/link-to}}
       </li>
       <li>
-        <a href="completed">Completed</a>
+        {{#link-to "tasks.completed" activeClass="selected"}}Completed{{/link-to}}
       </li>
     </ul>
  

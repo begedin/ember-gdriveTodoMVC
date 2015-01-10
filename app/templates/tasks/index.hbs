@@ -1,0 +1,9 @@
+<ul id="todo-list">
+  {{#each task in model itemController='task'}}
+  <li {{bind-attr class="task.completed:complete" }}>
+    {{input type="checkbox" checked=task.completed class="toggle"}}
+    <label>{{task.title}}</label>
+    <button class="destroy" {{action 'delete' task}}></button>
+  </li>
+  {{/each}}
+</ul>
