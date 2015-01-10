@@ -1,9 +1,14 @@
 <ul id="todo-list">
   {{#each task in model itemController='task'}}
-  <li {{bind-attr class="task.completed:complete" }}>
-    {{input type="checkbox" checked=task.completed class="toggle"}}
-    <label>{{task.title}}</label>
-    <button class="destroy" {{action 'delete' task}}></button>
+  <li {{bind-attr class="task.isCompleted:complete task.isEditing:editing" }}>
+    {{#if task.isEditing}}
+      {{input class="edit" value=task.title focus-out="acceptChanges" insert-newline="acceptChanges" autofocus="autofocus"}}
+    {{else}}
+      {{input type="checkbox" checked=task.completed class="toggle"}}
+      <label {{action 'edit' on='doubleClick'}}>{{task.title}}</label>
+      <button class="destroy" {{action 'delete'}}></button>
+    {{/if}}
+    
   </li>
   {{/each}}
 </ul>
