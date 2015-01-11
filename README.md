@@ -10,6 +10,13 @@ Create and document the creation of a ToDo list application which is able to
 * store tasks through ember-gdrive
 * share the document via the ember-gdrive built-in share modal
 
+# How to run
+
+* Clone the repository
+* `npm install`
+* `bower install`
+* This is an EmberCLI app, so run `ember serve` or `ember server` to run it.
+
 # Preparing an EmberCLI app to use ember-gdrive
 
 ## Step 1 - Create a new Ember CLI applicaton
@@ -33,7 +40,7 @@ Configure the SDK. Enable document creation and add your default MIME type. You 
 
 ## Step 4 - Modify your app's configuration and add ember-gdrive settings
 
-The way ember-gdrive currently works requires your locationType to be set to 'hash', so change the appropriate property from 'auto' to 'hash'.
+The way ember-gdrive currently works requires your `locationType` to be set to `'hash'`, so change the appropriate property from `'auto'` to `'hash'`.
 
 `ember-gdrive` requires the following object to be added to the EmberCLI configuration's `ENV.APP` object:
 ```
@@ -44,9 +51,11 @@ The way ember-gdrive currently works requires your locationType to be set to 'ha
   GOOGLE_CLIENT_ID: '[your entire client id]'
 }
 ```
+### (Optional) Issues with the content-security-policy feature?
 
-If you're using ember-cli-content-security-policy, this is the minimum you need to add to the `ENV` object in order to get rid of content security warnings during development.
-Keep in mind that setting the header to the value bellow will cause the app to throw erros instead of warnings for any URL unaccounted for in the policy.
+If you're using ember-cli-content-security-policy, which instally by default with a new Ember-cli app, this is the minimum you need to add to the `ENV` object in order to get rid of content security warnings during development of an ember-gdrive app.
+
+Keep in mind that setting the header to the value bellow will cause the app to throw erros instead of warnings for any URL unaccounted for in the policy, so be sure to add everything you need.
 ```
 contentSecurityPolicyHeader: 'Content-Security-Policy',
 contentSecurityPolicy: {
@@ -62,9 +71,11 @@ contentSecurityPolicy: {
 
 We suggest you read up on this at https://github.com/rwjblue/ember-cli-content-security-policy
 
-# A simple TodoMVC with ember-gdrive
+# Structuring the application
 
-This early in development, the router configuration needs to be structured the following way:
+## Routes and route mixins
+
+At the moment, the router configuration needs to be structured the following way:
 ```
 this.resource('document', { path: 'd/:document_id' }, function() {
     // routes to your objects go here
@@ -77,3 +88,28 @@ ember-gdrive exposes several route mixins, which need to be used in your applica
 
 * `ApplicationRouteMixin` - this one will be used by your base application route. Usually, it's simply the route `application`, but you may have specific cases
 * `AuthenticatedRouteMixin` - this one will be used by routes that load data or otherwise access a google drive document, so they require authentication. By default, this would be the `document` route.
+
+## Adapter 
+
+ember-gdrive provides an application adapter. You are required to use this adapter for your models. Typically, this is done at an application level, but there may be different scenarios.
+Content of `app\adapters\application.js˙`:
+```
+import GDriveAdapter from 'ember-gdrive/adapters/adapter';
+
+export default GDriveAdapter;
+
+```
+
+## Authentication
+
+ember-gdrive provides an authenticator based on [ember-simple-auth](https://github.com/simplabs/ember-simple-auth) and [ember-cli-simple-auth](https://github.com/simplabs/ember-cli-simple-auth). To login in your `login` route, simply call `this.session.authenticate('authenticator:gdrive');`.
+
+## Sharing
+
+A `share-modal` component exists within the addon. It opens a modal with a list of google users with permissions to the current document. You can send an invitation to more users as well as revoke permissions from existing users by clicking on their name.
+
+Clicking outside the modal will dimiss it.
+
+To use the modal, add it a template from which you wish to open it - `{{share-modal open-when=isSharing}}`
+
+Setting the "isSharing" property to true will open the modal. The property will immediately be set back to false, and the modal will handle any closing actions by itself.
