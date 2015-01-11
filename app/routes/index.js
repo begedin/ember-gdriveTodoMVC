@@ -15,7 +15,7 @@ export default Ember.Route.extend({
       return;
     }
 
-    this.get('session').authenticate('authenticator:gdrive', {}).then(function () {
+    this.get('session').authenticate('authenticator:gdrive').then(function () {
 
       if (state.get('isOpen')) {
         return documentSource.openFromState();
@@ -31,7 +31,7 @@ export default Ember.Route.extend({
 
   actions: {
     login: function () {
-      this.session.authenticate('authenticator:gdrive', {});
+      this.session.authenticate('authenticator:gdrive');
     }
   }
 });
