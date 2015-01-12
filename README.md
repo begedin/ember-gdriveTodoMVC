@@ -102,7 +102,23 @@ export default GDriveAdapter;
 
 ## Authentication
 
-ember-gdrive provides an authenticator based on [ember-simple-auth](https://github.com/simplabs/ember-simple-auth) and [ember-cli-simple-auth](https://github.com/simplabs/ember-cli-simple-auth). To login in your `login` route, simply call `this.session.authenticate('authenticator:gdrive');`.
+ember-gdrive provides an authenticator based on [ember-simple-auth](https://github.com/simplabs/ember-simple-auth) and [ember-cli-simple-auth](https://github.com/simplabs/ember-cli-simple-auth). To login in your `login` route, simply use the `LoginControllerMixin` for the route's controller and bind a template button to the `authenticate` action:
+
+In `app\controllers\login.js`:
+
+
+```
+import Ember from 'ember';
+import LoginControllerMixin from 'ember-gdrive/mixins/login-controller-mixin';
+
+export default Ember.Route.extend(LoginControllerMixin, {});
+```
+
+In `app\templates\login.hbs'`, for example:
+
+```
+<button {{action 'authenticate'}}>Login</button>
+```
 
 ## Sharing
 
