@@ -17,6 +17,10 @@ Create and document the creation of a ToDo list application which is able to
 * `bower install`
 * This is an EmberCLI app, so run `ember serve` or `ember server` to run it.
 
+# The demo
+
+There is a [demo document available](http://begedin.github.io/ember-gdriveTodoMVC/#/d/0B2p0u24WIw-tRWVfY2hzMEdoWFE/) for testing.
+
 # Preparing an EmberCLI app to use ember-gdrive
 
 ## Step 1 - Create a new Ember CLI applicaton
