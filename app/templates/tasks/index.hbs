@@ -4,7 +4,7 @@
     {{#if task.isEditing}}
       {{input class="edit" value=task.title focus-out="acceptChanges" insert-newline="acceptChanges" autofocus="autofocus"}}
     {{else}}
-      {{input type="checkbox" checked=task.completed class="toggle"}}
+      {{input type="checkbox" checked=task.isCompleted class="toggle"}}
       <label {{action 'edit' on='doubleClick'}}>{{task.title}}</label>
       <button class="destroy" {{action 'delete'}}></button>
     {{/if}}
