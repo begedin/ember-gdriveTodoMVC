@@ -13,8 +13,7 @@ Create and document the creation of a ToDo list application which is able to
 # How to run
 
 * Clone the repository
-* `npm install`
-* `bower install`
+* `ember install`
 * This is an EmberCLI app, so run `ember serve` or `ember server` to run it.
 
 # Preparing an EmberCLI app to use ember-gdrive
@@ -23,12 +22,10 @@ Create and document the creation of a ToDo list application which is able to
 http://www.ember-cli.com/#getting-started
 * `ember new my-test-app`
 
-## Step 2 - Add required dependencies to the project
-* `npm install --save-dev coderly/ember-gdrive`
-* `npm install --save-dev ember-cli-simple-auth`
-* `bower install --save ember-simple-auth`
+## Step 2 - Add ember-gdrive dependencies to the project
+* `ember install:addon coderly/ember-gdrive`
 
-Note that ember-cli-simple-auth is a third party addon which expects ember-simple-auth to be installed via bower. This is why ember-simple-auth needs to be added via bower.
+This will install ember-gdrive as well as it's two prerequisites - `ember-simple-auth` as a bower component and `ember-cli-simple-auth` as an npm dependency.
 
 ## Step 3 - Prepare the Google Drive realtime API
 
