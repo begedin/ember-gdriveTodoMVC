@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.ObjectController.extend({
   
   isEditing: false,
+  newTitle: Ember.computed.oneWay('title'),
   
   isCompleted: function(key, value){
     var model = this.get('model');
@@ -24,17 +25,31 @@ export default Ember.ObjectController.extend({
     },
 
     delete: function () {
-      this.get('model').destroyRecord();
+      this.delete();
     },
 
     acceptChanges: function () {
-      this.set('isEditing', false);
+      var newTitle = this.get('newTitle').trim();
 
-      if (Ember.isEmpty(this.get('model.title'))) {
-        this.send('delete', task);
+      if (Ember.isEmpty(newTitle)) {
+        Ember.run.debounce(this, 'delete', 0);
       } else {
-        this.get('model').save();
+        var task = this.get('model');
+        task.set('title', newTitle);
+        task.save();
       }
+      
+      this.set('newTitle', newTitle);
+      this.set('isEditing', false);
     },
+    
+    discardChanges: function () {
+      this.set('newTitle', this.get('title'));
+      this.set('isEditing', false);
+    }
+  },
+  
+  delete: function () {
+    return this.get('model').destroyRecord();
   }
 });
