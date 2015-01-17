@@ -1,5 +1,6 @@
 {{#if session.isAuthenticated}}
   <a href="https://drive.google.com" class="btn btn-default btn-lg home-button">Go to Google Drive</a>
+  {{document-creator documentCreated='documentCreated'}}
 {{else}}
   <h4 class="col-md-4 col-md-offset-4" style="text-align: center;">
       <button type="button" class="login_button" {{action 'login'}}>
