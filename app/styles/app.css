@@ -391,3 +391,8 @@ label[for='toggle-all'] {
   position: relative;
   font-family: 'Open Sans', sans-serif;
 }
+
+.logout-link {
+  text-decoration: underline;
+  cursor: pointer;
+}
