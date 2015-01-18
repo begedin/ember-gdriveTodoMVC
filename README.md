@@ -123,7 +123,11 @@ A `document-creator` component exists within the addon. It consits of a currentl
 
 Upon successful creation of the document, an action is triggered with the newly created document set as the first and only parameter for the action handler. This is suitable for transitioning to the `document` route ( `route.tranisitionTo('document', doc)`) and for such usage, there is a predefined action in the `ApplicationRouteMixin`.
 
-Thus, the simplest way to use the `document-creator` component is to add `{{document-creator documentCreated='documentCreated'}}` to a template under the application route. 
+Thus, the simplest way to use the `document-creator` component is to add 
+```
+{{document-creator documentCreated='documentCreated'}}
+``` 
+to a template under the application route. 
 
 ## Sharing
 
