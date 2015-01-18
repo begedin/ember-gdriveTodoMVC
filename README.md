@@ -117,6 +117,14 @@ In `app\templates\login.hbs'`, for example:
 <button {{action 'authenticate'}}>Login</button>
 ```
 
+## Creating documents
+
+A `document-creator` component exists within the addon. It consits of a currently unstyled input field and button and requires the user to be logged in in order to create the document. 
+
+Upon successful creation of the document, an action is triggered with the newly created document set as the first and only parameter for the action handler. This is suitable for transitioning to the `document` route ( `route.tranisitionTo('document', doc)`) and for such usage, there is a predefined action in the `ApplicationRouteMixin`.
+
+Thus, the simplest way to use the `document-creator` component is to add `{{document-creator documentCreated='documentCreated'}}` to a template under the application route. 
+
 ## Sharing
 
 A `share-modal` component exists within the addon. It opens a modal with a list of google users with permissions to the current document. You can send an invitation to more users as well as revoke permissions from existing users by clicking on their name.
