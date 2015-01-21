@@ -5,7 +5,6 @@ module.exports = function(environment) {
     modulePrefix: 'ember-gdrive-todo-mvc',
     environment: environment,
     baseURL: '/',
-    locationType: 'hash',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

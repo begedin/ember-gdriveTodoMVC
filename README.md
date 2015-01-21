@@ -37,8 +37,6 @@ Configure the SDK. Enable document creation and add your default MIME type. You 
 
 ## Step 4 - Modify your app's configuration and add ember-gdrive settings
 
-The way ember-gdrive currently works requires your `locationType` to be set to `'hash'`, so change the appropriate property from `'auto'` to `'hash'`.
-
 `ember-gdrive` requires the following object to be added to the EmberCLI configuration's `ENV.APP` object:
 ```
 'ember-gdrive': {
