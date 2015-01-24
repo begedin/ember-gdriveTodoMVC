@@ -38,7 +38,7 @@ Configure the SDK. Enable document creation and add your default MIME type. You 
 ## Step 4 - Modify your app's configuration and add ember-gdrive settings
 
 `ember-gdrive` requires the following object to be added to the EmberCLI configuration's `ENV.APP` object:
-```
+```JavaScript
 'ember-gdrive': {
   GOOGLE_API_KEY: '[YOUR API KEY GOES HERE]',
   GOOGLE_MIME_TYPE: '[your selected MIME type]',
@@ -51,7 +51,7 @@ Configure the SDK. Enable document creation and add your default MIME type. You 
 If you're using ember-cli-content-security-policy, which instally by default with a new Ember-cli app, this is the minimum you need to add to the `ENV` object in order to get rid of content security warnings during development of an ember-gdrive app.
 
 Keep in mind that setting the header to the value bellow will cause the app to throw erros instead of warnings for any URL unaccounted for in the policy, so be sure to add everything you need.
-```
+```JavaScript
 contentSecurityPolicyHeader: 'Content-Security-Policy',
 contentSecurityPolicy: {
   'default-src': "'self' accounts.google.com content.googleapis.com drive.google.com",
@@ -71,7 +71,7 @@ We suggest you read up on this at https://github.com/rwjblue/ember-cli-content-s
 ## Routes and route mixins
 
 At the moment, the router configuration needs to be structured the following way:
-```
+```JavaScript
 this.resource('document', { path: 'd/:document_id' }, function() {
     // routes to your objects go here
 });
@@ -86,13 +86,12 @@ ember-gdrive exposes several route mixins, which need to be used in your applica
 
 ## Adapter 
 
-ember-gdrive provides an application adapter. You are required to use this adapter for your models. Typically, this is done at an application level, but there may be different scenarios.
-Content of `app\adapters\application.js˙`:
-```
-import GDriveAdapter from 'ember-gdrive/adapters/adapter';
+ember-gdrive provides and sets an application adapter automatically. If you need to customize it, you can import änd extend it yourself in `adapters/application.js`:
 
-export default GDriveAdapter;
+```JavaScript
+import GoogleDriveAdapter from 'ember-gdrive/adapters/google-drive';
 
+export default GoogleDriveAdapter.extend({});
 ```
 
 ## Authentication
@@ -102,7 +101,7 @@ ember-gdrive provides an authenticator based on [ember-simple-auth](https://gith
 In `app\controllers\login.js`:
 
 
-```
+```JavaScript
 import Ember from 'ember';
 import LoginControllerMixin from 'ember-gdrive/mixins/login-controller-mixin';
 
