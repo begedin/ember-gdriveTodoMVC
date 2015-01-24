@@ -135,3 +135,8 @@ Clicking outside the modal will dimiss it.
 To use the modal, add it a template from which you wish to open it - `{{share-modal open-when=isSharing}}`
 
 Setting the "isSharing" property to true will open the modal. The property will immediately be set back to false, and the modal will handle any closing actions by itself.
+
+The modal has a default set of styles, which should look acceptable, but if you'd like to addapt it to your own set, the easiest way to do that and completely abandon the old styles is to use the component with a custom tag name:
+```Handlebars
+{{share-modal tagName='my-custom-tag-name' open-when=isSharing}}
+```
