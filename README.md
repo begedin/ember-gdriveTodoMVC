@@ -48,9 +48,10 @@ Configure the SDK. Enable document creation and add your default MIME type. You 
 ```
 ### (Optional) Issues with the content-security-policy feature?
 
-If you're using ember-cli-content-security-policy, which instally by default with a new Ember-cli app, this is the minimum you need to add to the `ENV` object in order to get rid of content security warnings during development of an ember-gdrive app.
+If you're using ember-cli-content-security-policy, which instally by default with a new Ember-cli app, this is the minimum you need to add to the `ENV` object in order to get rid of content security errors while the app is trying to run.
 
-Keep in mind that setting the header to the value bellow will cause the app to throw erros instead of warnings for any URL unaccounted for in the policy, so be sure to add everything you need.
+Keep in mind that this covers only rules needed by ember-gdrive to function correctly and without violations. Your application might need specific rules of it's own.
+
 ```JavaScript
 contentSecurityPolicyHeader: 'Content-Security-Policy',
 contentSecurityPolicy: {
