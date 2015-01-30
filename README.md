@@ -68,27 +68,37 @@ contentSecurityPolicy: {
 
 We suggest you read up on this at https://github.com/rwjblue/ember-cli-content-security-policy
 
-# Structuring the application
+# Basic application structure
+
+Upon installation of `ember-gdrive`, some basic scaffolding will be added to your app, which includes a model, a route structure and a view which allows you add and remove simple items to and from a Google Drive document.
+
+The scaffolding also allows you to create new documents via the `document-creator` component placed in the `application` template, as well as share a loaded document through the `share-modal` component placed in the `items` template.
 
 ## Routes and route mixins
 
-At the moment, the router configuration needs to be structured the following way:
+The router configuration is structured in the following way:
 ```JavaScript
-this.resource('document', { path: 'd/:document_id' }, function() {
-    // routes to your objects go here
+Router.map(function() {
+  this.resource('document', { path: 'd/:document_id' }, function() {
+      this.resource('items', { path: 'items' });
+      
+      // the rest of your models will go here, under the document resource
+  });
+  
+  this.resource('login');
 });
 
-this.resource('login');
 ```
-
 ember-gdrive exposes several route mixins, which need to be used in your application. They are mostly inherited from `ember-simple-auth`, with a few extensions.
 
-* `ApplicationRouteMixin` - this one will be used by your base application route. Usually, it's simply the route `application`, but you may have specific cases
-* `AuthenticatedRouteMixin` - this one will be used by routes that load data or otherwise access a google drive document, so they require authentication. By default, this would be the `document` route.
+* `ApplicationRouteMixin` - this one will is used by your `application` route. If you do not have an open document, you can login from here and create a new one.
+* `AuthenticatedRouteMixin` - this one will be used by the `document` since this is the route that needs direct access to the Google Drive document and enables it's child routes to store to and retrieve record from the document. 
 
 ## Adapter 
 
-ember-gdrive provides and sets an application adapter automatically. If you need to customize it, you can import änd extend it yourself in `adapters/application.js`:
+ember-gdrive provides and sets an application adapter automatically, so there's no need to do anything in a typical case.
+
+If you need to customize it, you can import and extend it yourself by creating `adapters/application.js`:
 
 ```JavaScript
 import GoogleDriveAdapter from 'ember-gdrive/adapters/google-drive';
@@ -96,47 +106,43 @@ import GoogleDriveAdapter from 'ember-gdrive/adapters/google-drive';
 export default GoogleDriveAdapter.extend({});
 ```
 
-## Authentication
+## Authentication - The `LoginController`
 
-ember-gdrive provides an authenticator based on [ember-simple-auth](https://github.com/simplabs/ember-simple-auth) and [ember-cli-simple-auth](https://github.com/simplabs/ember-cli-simple-auth). To login in your `login` route, simply use the `LoginControllerMixin` for the route's controller and bind a template button to the `authenticate` action:
+ember-gdrive provides an authenticator based on [ember-simple-auth](https://github.com/simplabs/ember-simple-auth) and [ember-cli-simple-auth](https://github.com/simplabs/ember-cli-simple-auth). 
 
-In `app\controllers\login.js`:
+In the default scaffolding, when accessing an "authentication-required" route while unauthenticated, you will be redirected to the `login` route. The `LoginController` and it's template handle authentication.
 
+## Creating documents - The `document-creator` component
+
+A `document-creator` component exists within the add-on. It consists of an unstyled input field and button and requires the user to be logged in in order to create the document. 
+
+In the scaffolding, the `application` template uses this component to handle document creation, but you need to be authenticated first. 
+
+Document creation can take a few seconds. Once the document is created, a predefined action handler from the `ApplicationRouteMixin` will transition you to the `document` route with the newly created document loaded.
+
+If you need to override this predefined action, simply bind the `document-creator` component to a different handler function, or, even simpler, override the handler function itself. As an easy reference, this is what the default handler looks like:
 
 ```JavaScript
-import Ember from 'ember';
-import LoginControllerMixin from 'ember-gdrive/mixins/login-controller-mixin';
+actions: {
+  documentCreated: function (doc) {
+    this.transitionToDocument(doc);
+  }
+}
 
-export default Ember.Route.extend(LoginControllerMixin, {});
+transitionToDocument: function (doc) {
+  this.transitionTo('document', doc);
+}
 ```
-
-In `app\templates\login.hbs'`, for example:
-
-```
-<button {{action 'authenticate'}}>Login</button>
-```
-
-## Creating documents
-
-A `document-creator` component exists within the addon. It consits of a currently unstyled input field and button and requires the user to be logged in in order to create the document. 
-
-Upon successful creation of the document, an action is triggered with the newly created document set as the first and only parameter for the action handler. This is suitable for transitioning to the `document` route ( `route.tranisitionTo('document', doc)`) and for such usage, there is a predefined action in the `ApplicationRouteMixin`.
-
-Thus, the simplest way to use the `document-creator` component is to add 
-```
-{{document-creator documentCreated='documentCreated'}}
-``` 
-to a template under the application route. 
 
 ## Sharing
 
-A `share-modal` component exists within the addon. It opens a modal with a list of google users with permissions to the current document. You can send an invitation to more users as well as revoke permissions from existing users by clicking on their name.
+A `share-modal` component is added to the `items` template, together with a link bound to an action that sets the `isSharing` property to true in order to open the modal. The action the link is bound to has been placed into the `ItemsController`.
+
+The component is a modal dialog with a list of google users with permissions to the current document. You can send an invitation to more users as well as revoke permissions from existing users by clicking on the X icon next to their name.
 
 Clicking outside the modal will dimiss it.
 
-To use the modal, add it a template from which you wish to open it - `{{share-modal open-when=isSharing}}`
-
-Setting the "isSharing" property to true will open the modal. The property will immediately be set back to false, and the modal will handle any closing actions by itself.
+As visible in the `ItemsController`, setting the "isSharing" property to true will open the modal. The property will immediately be set back to false, and the modal will handle any closing actions by itself.
 
 The modal has a default set of styles, which should look acceptable, but if you'd like to addapt it to your own set, the easiest way to do that and completely abandon the old styles is to use the component with a custom tag name:
 ```Handlebars
