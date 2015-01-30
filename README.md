@@ -33,22 +33,23 @@ Go to console.developers.google.com and create a new project (or use the exisitn
 
 Also go to **APIs and auth > API** and enable the **Drive API** and **Drive SDK**
 
-Configure the SDK. Enable document creation and add your default MIME type. You will require it bellow.
+Configure the SDK. Enable document creation and add your default MIME type. You will require it in the next section.
 
-## Step 4 - Modify your app's configuration and add ember-gdrive settings
+## Step 4 - Fill out google API information in `config/environment.js`
 
-`ember-gdrive` requires the following object to be added to the EmberCLI configuration's `ENV.APP` object:
+Installing the`ember-gdrive` addon will add a property group to the configuration script. This is where your Google API information is supposed to go. The properties are filled as follows:
+
 ```JavaScript
 'ember-gdrive': {
-  GOOGLE_API_KEY: '[YOUR API KEY GOES HERE]',
-  GOOGLE_MIME_TYPE: '[your selected MIME type]',
+  GOOGLE_API_KEY: '[your API key goes here]',
+  GOOGLE_MIME_TYPE: '[your selected MIME type goes here]',
   GOOGLE_DRIVE_SDK_APP_ID: '[first part of your client id, the part before the first dash]',
   GOOGLE_CLIENT_ID: '[your entire client id]'
 }
 ```
 ### (Optional) Issues with the content-security-policy feature?
 
-If you're using ember-cli-content-security-policy, which instally by default with a new Ember-cli app, this is the minimum you need to add to the `ENV` object in order to get rid of content security errors while the app is trying to run.
+If you're using ember-cli-content-security-policy, which installs by default with a new Ember-cli app, this is the minimum you need to add to the `ENV` object in order to get rid of content security errors while the app is trying to run.
 
 Keep in mind that this covers only rules needed by ember-gdrive to function correctly and without violations. Your application might need specific rules of it's own.
 
