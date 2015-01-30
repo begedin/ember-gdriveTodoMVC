@@ -98,7 +98,7 @@ ember-gdrive exposes several route mixins, which need to be used in your applica
 
 ember-gdrive provides and sets an application adapter automatically, so there's no need to do anything in a typical case.
 
-If you need to customize it, you can import änd extend it yourself by creating `adapters/application.js`:
+If you need to customize it, you can import and extend it yourself by creating `adapters/application.js`:
 
 ```JavaScript
 import GoogleDriveAdapter from 'ember-gdrive/adapters/google-drive';
@@ -106,15 +106,15 @@ import GoogleDriveAdapter from 'ember-gdrive/adapters/google-drive';
 export default GoogleDriveAdapter.extend({});
 ```
 
-## Authentication - The Login controller
+## Authentication - The `LoginController`
 
 ember-gdrive provides an authenticator based on [ember-simple-auth](https://github.com/simplabs/ember-simple-auth) and [ember-cli-simple-auth](https://github.com/simplabs/ember-cli-simple-auth). 
 
 In the default scaffolding, when accessing an "authentication-required" route while unauthenticated, you will be redirected to the `login` route. The `LoginController` and it's template handle authentication.
 
-## Creating documents
+## Creating documents - The `document-creator` component
 
-A `document-creator` component exists within the addon. It consits of a currently unstyled input field and button and requires the user to be logged in in order to create the document. 
+A `document-creator` component exists within the add-on. It consists of an unstyled input field and button and requires the user to be logged in in order to create the document. 
 
 In the scaffolding, the `application` template uses this component to handle document creation, but you need to be authenticated first. 
 
@@ -136,7 +136,7 @@ transitionToDocument: function (doc) {
 
 ## Sharing
 
-A `share-modal` component is added to the `items` template, together with a link bound to an action that set's the `isSharing` property to true in order to open the modal. The acount the link is bound to has been placed into the `ItemsController`.
+A `share-modal` component is added to the `items` template, together with a link bound to an action that sets the `isSharing` property to true in order to open the modal. The action the link is bound to has been placed into the `ItemsController`.
 
 The component is a modal dialog with a list of google users with permissions to the current document. You can send an invitation to more users as well as revoke permissions from existing users by clicking on the X icon next to their name.
 
