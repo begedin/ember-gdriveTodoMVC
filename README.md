@@ -47,26 +47,6 @@ Installing the`ember-gdrive` addon will add a property group to the configuratio
   GOOGLE_CLIENT_ID: '[your entire client id]'
 }
 ```
-### (Optional) Issues with the content-security-policy feature?
-
-If you're using ember-cli-content-security-policy, which installs by default with a new Ember-cli app, this is the minimum you need to add to the `ENV` object in order to get rid of content security errors while the app is trying to run.
-
-Keep in mind that this covers only rules needed by ember-gdrive to function correctly and without violations. Your application might need specific rules of it's own.
-
-```JavaScript
-contentSecurityPolicyHeader: 'Content-Security-Policy',
-contentSecurityPolicy: {
-  'default-src': "'self' accounts.google.com content.googleapis.com drive.google.com",
-  'script-src': "'self' 'unsafe-eval' 'unsafe-inline' apis.google.com drive.google.com",
-  'font-src': "'self'",
-  'connect-src': "'self' 'unsafe-eval' apis.google.com drive.google.com",
-  'img-src': "'self' data: ssl.gstatic.com csi.gstatic.com",
-  'style-src': "'self' 'unsafe-inline'",
-  'media-src': "'self'"
-},
-```
-
-We suggest you read up on this at https://github.com/rwjblue/ember-cli-content-security-policy
 
 # Basic application structure
 
