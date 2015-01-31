@@ -116,13 +116,13 @@ transitionToDocument: function (doc) {
 
 ## Sharing
 
-A `share-modal` component is added to the `items` template, together with a link bound to an action that sets the `isSharing` property to true in order to open the modal. The action the link is bound to has been placed into the `ItemsController`.
+A `share-modal` component is added to the `document` template, together with a link bound to an action that sets the `isSharing` property to true in order to open the modal. The action the link is bound to has been placed into the `document` controller.
 
 The component is a modal dialog with a list of google users with permissions to the current document. You can send an invitation to more users as well as revoke permissions from existing users by clicking on the X icon next to their name.
 
 Clicking outside the modal will dimiss it.
 
-As visible in the `ItemsController`, setting the "isSharing" property to true will open the modal. The property will immediately be set back to false, and the modal will handle any closing actions by itself.
+As visible in the `document` controller, setting the "isSharing" property to true will open the modal. The property will immediately be set back to false, and the modal will handle any closing actions by itself.
 
 The modal has a default set of styles, which should look acceptable, but if you'd like to addapt it to your own set, the easiest way to do that and completely abandon the old styles is to use the component with a custom tag name:
 ```Handlebars
