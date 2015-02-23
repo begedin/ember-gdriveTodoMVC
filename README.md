@@ -50,7 +50,7 @@ Installing the`ember-gdrive` addon will add a property group to the configuratio
 
 ### (Optional) Issues with the content-security-policy feature?
 
-If you're using ember-cli-content-security-policy, which installs by default with a new Ember-cli app, this is the minimum you need to add to the `ENV` object in order to get rid of content security errors while the app is trying to run.
+If you're using ember-cli-content-security-policy, which installs by default with a new Ember-cli app, this is the minimum you need to add to the `ENV` object in order to get rid of content security warnings thrown during app runtime.
 
 Keep in mind that this covers only rules needed by ember-gdrive to function correctly and without violations. Your application might need specific rules of it's own.
 
