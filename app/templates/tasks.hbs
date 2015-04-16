@@ -3,12 +3,12 @@
     <h1>ember-gdrive</h1>
     {{input id="new-todo" placeholder="Type task title" value=newTaskTitle action='create'}}
   </header>
- 
+
   <section id="main">
-    {{outlet}} 
+    {{outlet}}
     {{input type="checkbox" id="toggle-all" checked=allAreDone }}
   </section>
- 
+
   <footer id="footer">
     <span id="todo-count">
       <strong>{{remainingCount}}</strong> todos left
@@ -24,13 +24,13 @@
         {{#link-to "tasks.completed" activeClass="selected"}}Completed{{/link-to}}
       </li>
     </ul>
- 
+
     <button id="clear-completed" {{action 'clearCompleted'}}>
       Clear completed ({{completedCount}})
     </button>
   </footer>
 </section>
- 
+
 <footer id="info">
   <p>Double-click to edit a todo</p>
   <p><a {{action 'share'}}>Click here to share this document</a></p>

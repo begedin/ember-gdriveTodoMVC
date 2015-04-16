@@ -1,10 +1,10 @@
 import Ember from 'ember';
 
-export default Ember.ObjectController.extend({
-  
+export default Ember.Controller.extend({
+
   isEditing: false,
-  newTitle: Ember.computed.oneWay('title'),
-  
+  newTitle: Ember.computed.oneWay('model.title'),
+
   isCompleted: function(key, value){
     var model = this.get('model');
 
@@ -18,7 +18,7 @@ export default Ember.ObjectController.extend({
       return value;
     }
   }.property('model.completed'),
-  
+
   actions: {
     edit: function () {
       this.set('isEditing', true);
@@ -38,17 +38,17 @@ export default Ember.ObjectController.extend({
         task.set('title', newTitle);
         task.save();
       }
-      
+
       this.set('newTitle', newTitle);
       this.set('isEditing', false);
     },
-    
+
     discardChanges: function () {
       this.set('newTitle', this.get('title'));
       this.set('isEditing', false);
     }
   },
-  
+
   delete: function () {
     return this.get('model').destroyRecord();
   }

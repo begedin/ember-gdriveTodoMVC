@@ -11,16 +11,16 @@ module.exports = function(environment) {
         // e.g. 'with-controller': true
       }
     },
-    
+
     contentSecurityPolicyHeader: 'Content-Security-Policy',
     contentSecurityPolicy: {
-      'default-src': "'self' accounts.google.com content.googleapis.com drive.google.com",
-      'script-src': "'self' 'unsafe-eval' 'unsafe-inline' apis.google.com drive.google.com",
-      'font-src': "'self'",
-      'connect-src': "'self' 'unsafe-eval' apis.google.com drive.google.com",
-      'img-src': "'self' data: ssl.gstatic.com csi.gstatic.com",
-      'style-src': "'self' 'unsafe-inline'",
-      'media-src': "'self'"
+      'default-src': '\'self\' accounts.google.com content.googleapis.com drive.google.com',
+      'script-src': '\'self\' \'unsafe-eval\' \'unsafe-inline\' apis.google.com drive.google.com',
+      'font-src': '\'self\'',
+      'connect-src': '\'self\' \'unsafe-eval\' apis.google.com drive.google.com',
+      'img-src': '\'self\' data: ssl.gstatic.com csi.gstatic.com',
+      'style-src': '\'self\' \'unsafe-inline\'',
+      'media-src': '\'self\''
     },
 
     APP: {
@@ -37,10 +37,10 @@ module.exports = function(environment) {
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
-    ENV.APP.LOG_ACTIVE_GENERATION = true;
+    // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    ENV.APP.LOG_VIEW_LOOKUPS = true;
+    // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
 
   if (environment === 'test') {

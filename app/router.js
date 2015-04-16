@@ -12,7 +12,7 @@ Router.map(function() {
         this.route('completed');
       });
   });
-  
+
   this.resource('login');
 });
 

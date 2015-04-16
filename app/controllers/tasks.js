@@ -42,7 +42,7 @@ export default Ember.ArrayController.extend({
     clearCompleted: function () {
       this.get('completedTasks').invoke('destroyRecord');
     },
-    
+
     share: function () {
       this.set('isSharing', true);
     }
